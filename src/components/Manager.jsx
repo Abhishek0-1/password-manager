@@ -21,7 +21,7 @@ function manager() {
     useEffect(() => {
         let pass = localStorage.getItem("pass")
         if (pass) {
-            setpasswordarr(JSON.parse("pass"))
+            setpasswordarr(JSON.parse(pass))
         }
     }, [])
 
@@ -37,7 +37,7 @@ function manager() {
     const savepass = () => {
 
         setpasswordarr([...passwordarr, form])
-        localStorage.setItem("password", JSON.stringify([...passwordarr, form]))
+        localStorage.setItem("pass", JSON.stringify([...passwordarr, form]))
         console.log(passwordarr);
         console.log(form)
 
@@ -48,7 +48,7 @@ function manager() {
 
     const [passwordarr, setpasswordarr] = useState([])
     return (
-        <div className=' m-22 '>
+        <div className=' m-15  w-1/2 mx-auto'>
 
             <div className='flex flex-col  '>
                 <div className='flex  flex-col items-center'>
@@ -134,6 +134,7 @@ function manager() {
                             <th className='text-center p-1'>site</th>
                             <th className='text-center '>username</th  >
                             <th className='text-center '>passward</th >
+                            <th className='text-center'>action</th>
 
                         </tr>
 
@@ -141,10 +142,59 @@ function manager() {
                     <tbody className='bg-blue-500'>
                         {passwordarr.map((item, index) => {
                             return <tr>
-                                <th className='text-center '>{item.site} </th >
-                                <th className='text-center '>{item.username} </th >
-                                <th className='text-center '>{item.password}</th>
+                                <th
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(item.site)
+                                        alert("site copied")
+
+                                    }}
+                                    className='text-center flex justify-center items-center gap-2 invert '>
+                                    <div className='flex gap-2 items-center'>
+                                        {item.site}
+                                        <img className='h-4 cursor-pointer' src="src/assets/copy.svg" alt="" />
+                                    </div>
+                                </th >
+                                <th
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(item.username)
+                                        alert("username copied")
+                                    }}
+                                    className='text-center  gap-2 invert '>
+                                    <div className='flex gap-2 justify-center items-center'>
+
+                                        {item.username}
+                                        <img className='h-4 cursor-pointer' src="src/assets/copy.svg" alt="" />
+                                    </div>
+                                </th >
+                                <th
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(item.password)
+                                        alert("password copied")
+                                    }}
+                                    className='text-center   gap-2 invert '>
+                                    <div className='flex gap-2 justify-center items-center'>
+
+                                        {item.password}
+                                        <img className='h-4 cursor-pointer' src="src/assets/copy.svg" alt="" />
+                                    </div>
+                                </th >
+
+                                <th
+                                    onClick={() => {
+                                        navigator.clipboard.writeText(item.password)
+                                        alert("password copied")
+                                    }}
+                                    className='text-center justify-center items-center flex gap-5 invert '>
+
+                                    <img className='h-6' src="src/assets/edit.svg" alt="" />
+                                    <img className='h-5' src="src/assets/delete.svg" alt="" />
+
+                                </th >
+
+
                             </tr>
+
+
                         })}
                     </tbody>
                 </table>}
